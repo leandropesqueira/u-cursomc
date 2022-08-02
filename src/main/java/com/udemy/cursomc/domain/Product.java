@@ -7,14 +7,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Category implements Serializable {
+public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,6 +25,13 @@ public class Category implements Serializable {
     @NonNull
     private String name;
 
-    @ManyToMany(mappedBy = "categories")
-    private List<Product> products = new ArrayList<>();
+    @NonNull
+    private Double price;
+
+    @ManyToMany
+    @JoinTable(name = "PRODUCT_CATEGORY",
+            joinColumns = @JoinColumn(name = "produtct_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories = new ArrayList<>();
 }
